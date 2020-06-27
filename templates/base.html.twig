@@ -1,12 +1,123 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+
+    />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    {% block stylesheets %} <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        #page-content {
+            flex: 1 0 auto;
+        }
+
+        #sticky-footer {
+            flex-shrink: none;
+        }
+
+        .searchbar{
+            margin-bottom: auto;
+            margin-top: auto;
+            height: 60px;
+            background-color: #353b48;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .search_input{
+            color: white;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 0;
+            caret-color:transparent;
+            line-height: 40px;
+            transition: width 0.4s linear;
+        }
+
+        .searchbar:hover > .search_input{
+            padding: 0 10px;
+            width: 450px;
+            caret-color:red;
+            transition: width 0.4s linear;
+        }
+
+        .searchbar:hover > .search_icon{
+            background: white;
+            color: #e74c3c;
+        }
+
+        .search_icon{
+            height: 40px;
+            width: 40px;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color:white;
+            text-decoration:none;
+        }
+    </style>{% endblock %}
+</head>
+<body class="d-flex flex-column">
+<div id="page-content">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 70px;">
+    <a class="navbar-brand" href="/">Gallery</a>
+    <ul class="nav navbar-nav">
+        <li><a class="nav-link " href="{{ path('list') }}">Главная</a></li>
+        <li><a class="nav-link" href="{{ path('list') }}">О нас</a></li>
+        <li><a class="nav-link" href="{{ path('list') }}">Наши работы</a></li>
+        <li><a class="nav-link" href="{{ path('list') }}">Наши услуги</a></li>
+    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">Обратная связь</div>
+
+    <form method="get" action="search" class="bd-search d-flex align-items-center">
+        <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
+            <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." >
+        </span>
+        <button hidden="hidden" type="submit" class="fa fa-search btn btn-primary"></button>
+    </form>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% if app.user %}
+            <li>
+                <a class="nav-link" href="{{ path('app_logout') }}"><span class="fa fa-shopping-basket"></span> Корзина </a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ path('app_logout') }}"><span class="fa fa-sign-out"></span> Выход </a>
+            </li>
+        {% else %}
+            <li>
+                <a class="nav-link" href="{{ path('app_login') }}"><span class="fa fa-sign-in"></span> Вход </a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ path('registration') }}"><span class="fa fa-user"></span> Регистрация </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+</div>
+</body>
+<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="container text-center">
+        <small>Copyright &copy; Gallery</small>
+    </div>
+</footer>
 </html>
