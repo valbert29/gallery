@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\Usr;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,12 @@ class RegistrationController extends AbstractController
             // Save
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            var_dump($user);
+
+            // Create shoppingCart
+            $cart = new Cart();
+            $cart->setUserId($user->getId());
+
+            $em->persist($cart);
             $em->flush();
 
             return $this->redirectToRoute('app_login');

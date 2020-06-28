@@ -29,4 +29,22 @@ class ListController extends AbstractController
             'companies' => $companies,
         ]);
     }
+
+    /**
+     * @Route("/aboutUs", name="aboutUs")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function aboutUs()
+    {
+        return $this->render('list/about_us.html.twig');
+    }
+
+    /**
+     * @Route("/services", name="services")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function services()
+    {
+        return $this->render('list/services.html.twig');
+    }
 }
